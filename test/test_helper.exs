@@ -164,10 +164,11 @@ defmodule Ash.Modbus.TestHelper do
     # master
     {:ok, slave_pid} = Slave.start_link(model: model)
     port = Slave.port(slave_pid)
-    {:ok, master_pid} = Master.start_link(port: port, ip: {127, 0, 0, 1})
+    {:ok, master_state} = Master.open(port: port, ip: {127, 0, 0, 1})
 
     for _ <- 0..10 do
-      assert {:ok, val} == Master.exec(master_pid, cmd)
+      {_, {:ok, val2}} = Master.exec(master_state, cmd)
+      assert val == val2
     end
   end
 
@@ -194,10 +195,10 @@ defmodule Ash.Modbus.TestHelper do
     # master
     {:ok, slave_pid} = Slave.start_link(model: model0)
     port = Slave.port(slave_pid)
-    {:ok, master_pid} = Master.start_link(port: port, ip: {127, 0, 0, 1})
+    {:ok, master_state} = Master.open(port: port, ip: {127, 0, 0, 1})
 
     for _ <- 0..10 do
-      assert :ok == Master.exec(master_pid, cmd)
+      {_, :ok} = Master.exec(master_state, cmd)
     end
   end
 end

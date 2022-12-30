@@ -29,17 +29,20 @@ defmodule Ash.Modbus.TcpTest do
     port = Slave.port(slave)
 
     # interact with it
-    {:ok, master} = Master.start_link(ip: {127, 0, 0, 1}, port: port)
+    {:ok, master} = Master.open(ip: {127, 0, 0, 1}, port: port)
     ini = 0xFFF0
-    GenServer.call(master, {:update, :tid, ini})
+    master = Master.put_tid(master, ini)
 
-    for tid <- ini..(ini + 0x10) do
-      tid = Bitwise.band(tid, 0xFFFF)
-      assert tid == GenServer.call(master, {:get, :tid})
-      :ok = Master.exec(master, {:fc, 0x50, 0x5152, 0})
-    end
+    master =
+      for tid <- ini..(ini + 0x10), reduce: master do
+        master ->
+          tid = Bitwise.band(tid, 0xFFFF)
+          assert tid == Master.get_tid(master)
+          {master, :ok} = Master.exec(master, {:fc, 0x50, 0x5152, 0})
+          master
+      end
 
-    :ok = Master.stop(master)
+    :ok = Master.close(master)
     :ok = Slave.stop(slave)
   end
 end
