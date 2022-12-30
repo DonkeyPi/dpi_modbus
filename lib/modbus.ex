@@ -2,20 +2,20 @@ defmodule Ash.Modbus do
   alias Ash.Modbus.Master
 
   def with(key, opts, callback) do
-    case Process.get(key) do
-      nil -> Process.put(key, Master.open(opts))
-      {:error, _} -> Process.put(key, Master.open(opts))
+    case get(key) do
+      nil -> put(key, Master.open(opts))
+      {:error, _} -> put(key, Master.open(opts))
       {:ok, _} -> :nop
     end
 
     master = fn cmd ->
-      {:ok, state} = Process.get(key)
+      {:ok, state} = get(key)
       {state, result} = Master.exec(state, cmd)
-      Process.put(key, {:ok, state})
+      put(key, {:ok, state})
       result
     end
 
-    case Process.get(key) do
+    case get(key) do
       {:error, reason} ->
         {:error, reason}
 
@@ -26,9 +26,13 @@ defmodule Ash.Modbus do
         rescue
           e ->
             Master.close(state)
-            Process.delete(key)
+            delete(key)
             {:error, e}
         end
     end
   end
+
+  defp get(key), do: Process.get({__MODULE__, key})
+  defp delete(key), do: Process.delete({__MODULE__, key})
+  defp put(key, value), do: Process.put({__MODULE__, key}, value)
 end
