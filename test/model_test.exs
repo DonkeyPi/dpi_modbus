@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.ModelTest do
+defmodule Dpi.Modbus.ModelTest do
   use ExUnit.Case
-  alias Ash.Modbus.Model
+  alias Dpi.Modbus.Model
   @state %{0x50 => %{{:c, 0x5152} => 0, {:c, 0x5153} => 0, {:c, 0x5155} => 0}}
 
   test "invalid slave" do

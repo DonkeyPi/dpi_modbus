@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.F02Test do
+defmodule Dpi.Modbus.F02Test do
   use ExUnit.Case
-  import Ash.Modbus.TestHelper
+  import Dpi.Modbus.TestHelper
 
   test "Read 0 from Single Input" do
     model0 = %{0x50 => %{{:i, 0x5152} => 0}}

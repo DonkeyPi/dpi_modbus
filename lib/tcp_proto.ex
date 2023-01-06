@@ -1,9 +1,9 @@
-defmodule Ash.Modbus.Tcp.Protocol do
+defmodule Dpi.Modbus.Tcp.Protocol do
   @moduledoc false
-  @behaviour Ash.Modbus.Protocol
+  @behaviour Dpi.Modbus.Protocol
   alias __MODULE__.Wrapper
-  alias Ash.Modbus.Request
-  alias Ash.Modbus.Response
+  alias Dpi.Modbus.Request
+  alias Dpi.Modbus.Response
   import Bitwise
 
   def next(tid) do

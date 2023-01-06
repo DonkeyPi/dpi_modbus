@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.F15Test do
+defmodule Dpi.Modbus.F15Test do
   use ExUnit.Case
-  import Ash.Modbus.TestHelper
+  import Dpi.Modbus.TestHelper
 
   test "Write 011 to Multiple Coils" do
     model0 = %{

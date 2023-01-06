@@ -1,4 +1,4 @@
-defmodule Ash.Modbus.Model do
+defmodule Dpi.Modbus.Model do
   @moduledoc false
 
   def apply(state, {:rc, slave, address, count}) when is_integer(address) and is_integer(count) do

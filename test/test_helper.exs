@@ -2,7 +2,7 @@ ExUnit.start()
 
 defmodule Shared do
   @moduledoc false
-  alias Ash.Modbus.Model
+  alias Dpi.Modbus.Model
 
   def start_link(model) do
     Agent.start_link(fn -> model end)
@@ -39,15 +39,15 @@ end
 defmodule Slave do
   @moduledoc false
   use GenServer
-  alias Ash.Modbus.Transport
-  alias Ash.Modbus.Protocol
+  alias Dpi.Modbus.Transport
+  alias Dpi.Modbus.Protocol
 
   def start_link(opts) do
     ip = Keyword.get(opts, :ip, {127, 0, 0, 1})
     port = Keyword.get(opts, :port, 0)
     model = Keyword.fetch!(opts, :model)
-    trans = Ash.Modbus.Tcp.Transport
-    proto = Keyword.get(opts, :proto, Ash.Modbus.Tcp.Protocol)
+    trans = Dpi.Modbus.Tcp.Transport
+    proto = Keyword.get(opts, :proto, Dpi.Modbus.Tcp.Protocol)
     init = %{trans: trans, proto: proto, model: model, port: port, ip: ip}
     GenServer.start_link(__MODULE__, init)
   end
@@ -131,14 +131,14 @@ defmodule Slave do
   end
 end
 
-defmodule Ash.Modbus.TestHelper do
+defmodule Dpi.Modbus.TestHelper do
   use ExUnit.Case
-  alias Ash.Modbus.Request
-  alias Ash.Modbus.Response
-  alias Ash.Modbus.Model
-  alias Ash.Modbus.Master
-  alias Ash.Modbus.Rtu
-  alias Ash.Modbus.Tcp
+  alias Dpi.Modbus.Request
+  alias Dpi.Modbus.Response
+  alias Dpi.Modbus.Model
+  alias Dpi.Modbus.Master
+  alias Dpi.Modbus.Rtu
+  alias Dpi.Modbus.Tcp
 
   def pp1(cmd, req, res, val, model) do
     assert req == Request.pack(cmd)

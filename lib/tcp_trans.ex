@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.Tcp.Transport do
+defmodule Dpi.Modbus.Tcp.Transport do
   @moduledoc false
-  @behaviour Ash.Modbus.Transport
+  @behaviour Dpi.Modbus.Transport
   @to 2000
 
   def open(opts) do

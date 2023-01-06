@@ -1,12 +1,12 @@
-defmodule Ash.Modbus.Master do
-  alias Ash.Modbus.Transport
-  alias Ash.Modbus.Protocol
+defmodule Dpi.Modbus.Master do
+  alias Dpi.Modbus.Transport
+  alias Dpi.Modbus.Protocol
 
   @to 2000
 
   def open(opts) do
-    transm = Keyword.get(opts, :trans, Ash.Modbus.Tcp.Transport)
-    protom = Keyword.get(opts, :proto, Ash.Modbus.Tcp.Protocol)
+    transm = Keyword.get(opts, :trans, Dpi.Modbus.Tcp.Transport)
+    protom = Keyword.get(opts, :proto, Dpi.Modbus.Tcp.Protocol)
     tid = Protocol.next(protom, nil)
 
     case Transport.open(transm, opts) do

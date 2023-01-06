@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.RtuTest do
+defmodule Dpi.Modbus.RtuTest do
   use ExUnit.Case
-  alias Ash.Modbus.Rtu
+  alias Dpi.Modbus.Rtu
 
   test "wrap test" do
     p(<<0xCB, 0x4F>>, <<0x01, 0x05, 0x0B, 0xB8, 0x00, 0x00>>)

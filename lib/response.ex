@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.Response do
+defmodule Dpi.Modbus.Response do
   @moduledoc false
-  alias Ash.Modbus.Utils
+  alias Dpi.Modbus.Utils
 
   def pack({:rc, slave, _address, count}, values) do
     ^count = Enum.count(values)

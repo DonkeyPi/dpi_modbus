@@ -1,10 +1,10 @@
-defmodule Ash.Modbus.Rtu.Protocol do
+defmodule Dpi.Modbus.Rtu.Protocol do
   @moduledoc false
-  @behaviour Ash.Modbus.Protocol
+  @behaviour Dpi.Modbus.Protocol
   alias __MODULE__.Wrapper
-  alias Ash.Modbus.Request
-  alias Ash.Modbus.Response
-  alias Ash.Modbus.Crc
+  alias Dpi.Modbus.Request
+  alias Dpi.Modbus.Response
+  alias Dpi.Modbus.Crc
 
   def next(_) do
   end

@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.FloatTest do
+defmodule Dpi.Modbus.FloatTest do
   use ExUnit.Case
-  alias Ash.Modbus.Float
+  alias Dpi.Modbus.Float
 
   # https://www.h-schmidt.net/FloatConverter/Float.html
   # endianess tested agains opto22 analog modules

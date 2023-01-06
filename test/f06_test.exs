@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.F06Test do
+defmodule Dpi.Modbus.F06Test do
   use ExUnit.Case
-  import Ash.Modbus.TestHelper
+  import Dpi.Modbus.TestHelper
 
   test "Write 0x6162 to Single Holding Register" do
     model0 = %{0x50 => %{{:hr, 0x5152} => 0}}

@@ -1,4 +1,4 @@
-defmodule Ash.Modbus.Utils do
+defmodule Dpi.Modbus.Utils do
   @moduledoc false
   use Bitwise
 

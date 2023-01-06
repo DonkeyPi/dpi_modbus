@@ -1,4 +1,4 @@
-defmodule Ash.Modbus.Transport do
+defmodule Dpi.Modbus.Transport do
   @moduledoc false
   @callback open(opts :: keyword()) ::
               {:ok, id :: any()} | {:error, reason :: any()}

@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.F04Test do
+defmodule Dpi.Modbus.F04Test do
   use ExUnit.Case
-  import Ash.Modbus.TestHelper
+  import Dpi.Modbus.TestHelper
 
   test "Read 0x6162 from Single Input Register" do
     model0 = %{0x50 => %{{:ir, 0x5152} => 0x6162}}

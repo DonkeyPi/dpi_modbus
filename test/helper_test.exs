@@ -1,7 +1,7 @@
-defmodule Ash.Modbus.HelperTest do
+defmodule Dpi.Modbus.HelperTest do
   use ExUnit.Case
-  alias Ash.Modbus.Utils
-  alias Ash.Modbus.Crc
+  alias Dpi.Modbus.Utils
+  alias Dpi.Modbus.Crc
 
   test "bool_to_byte test" do
     assert 0x00 == Utils.bool_to_byte(0)

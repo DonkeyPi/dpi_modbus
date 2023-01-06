@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.TcpTest do
+defmodule Dpi.Modbus.TcpTest do
   use ExUnit.Case
-  alias Ash.Modbus.Tcp
+  alias Dpi.Modbus.Tcp
 
   # http://www.tahapaksu.com/crc/
   # https://www.lammertbies.nl/comm/info/crc-calculation.html
@@ -19,7 +19,7 @@ defmodule Ash.Modbus.TcpTest do
 
   test "transaction id wraps around 0xFFFF" do
     # run with: mix slave
-    alias Ash.Modbus.Master
+    alias Dpi.Modbus.Master
 
     # start your slave with a shared model
     model = %{0x50 => %{{:c, 0x5152} => 0}}

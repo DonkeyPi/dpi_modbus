@@ -1,6 +1,6 @@
-defmodule Ash.Modbus.Request do
+defmodule Dpi.Modbus.Request do
   @moduledoc false
-  alias Ash.Modbus.Utils
+  alias Dpi.Modbus.Utils
 
   def pack({:rc, slave, address, count}) do
     reads(:d, slave, 1, address, count)

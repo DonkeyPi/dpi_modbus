@@ -1,5 +1,5 @@
-defmodule Ash.Modbus do
-  alias Ash.Modbus.Master
+defmodule Dpi.Modbus do
+  alias Dpi.Modbus.Master
 
   def with(key, opts, callback) do
     case get(key) do
