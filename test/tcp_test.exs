@@ -19,7 +19,7 @@ defmodule Dpi.Modbus.TcpTest do
 
   test "transaction id wraps around 0xFFFF" do
     # run with: mix slave
-    alias Dpi.Modbus.Master
+    alias Dpi.Modbus.Conn
 
     # start your slave with a shared model
     model = %{0x50 => %{{:c, 0x5152} => 0}}
@@ -29,20 +29,20 @@ defmodule Dpi.Modbus.TcpTest do
     port = Slave.port(slave)
 
     # interact with it
-    {:ok, master} = Master.open(ip: {127, 0, 0, 1}, port: port)
+    {:ok, conn} = Conn.open(ip: {127, 0, 0, 1}, port: port)
     ini = 0xFFF0
-    master = Master.put_tid(master, ini)
+    conn = Conn.put_tid(conn, ini)
 
-    master =
-      for tid <- ini..(ini + 0x10), reduce: master do
-        master ->
+    conn =
+      for tid <- ini..(ini + 0x10), reduce: conn do
+        conn ->
           tid = Bitwise.band(tid, 0xFFFF)
-          assert tid == Master.get_tid(master)
-          {master, :ok} = Master.exec(master, {:fc, 0x50, 0x5152, 0})
-          master
+          assert tid == Conn.get_tid(conn)
+          {conn, :ok} = Conn.exec(conn, {:fc, 0x50, 0x5152, 0})
+          conn
       end
 
-    :ok = Master.close(master)
+    :ok = Conn.close(conn)
     :ok = Slave.stop(slave)
   end
 end

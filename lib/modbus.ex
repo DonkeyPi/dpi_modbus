@@ -1,17 +1,19 @@
 defmodule Dpi.Modbus do
-  alias Dpi.Modbus.Master
+  alias Dpi.Modbus.Conn
 
   def with(key, opts, callback) do
     case get(key) do
-      nil -> put(key, Master.open(opts))
-      {:error, _} -> put(key, Master.open(opts))
+      nil -> put(key, Conn.open(opts))
+      {:error, _} -> put(key, Conn.open(opts))
       {:ok, _} -> :nop
     end
 
+    # no autoclose on error
+    # only autoclose callback on exception
     master = fn cmd ->
-      {:ok, state} = get(key)
-      {state, result} = Master.exec(state, cmd)
-      put(key, {:ok, state})
+      {:ok, conn} = get(key)
+      {conn, result} = Conn.exec(conn, cmd)
+      put(key, {:ok, conn})
       result
     end
 
@@ -19,16 +21,28 @@ defmodule Dpi.Modbus do
       {:error, reason} ->
         {:error, reason}
 
-      {:ok, state} ->
+      {:ok, _} ->
         try do
           callback.(master)
-          :ok
         rescue
           e ->
-            Master.close(state)
+            {:ok, conn} = get(key)
+            Conn.close(conn)
             delete(key)
             {:error, e}
         end
+    end
+  end
+
+  def close(key) do
+    case get(key) do
+      {:ok, conn} ->
+        Conn.close(conn)
+        delete(key)
+        :ok
+
+      _ ->
+        :ok
     end
   end
 

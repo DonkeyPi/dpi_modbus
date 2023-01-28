@@ -136,7 +136,7 @@ defmodule Dpi.Modbus.TestHelper do
   alias Dpi.Modbus.Request
   alias Dpi.Modbus.Response
   alias Dpi.Modbus.Model
-  alias Dpi.Modbus.Master
+  alias Dpi.Modbus.Conn
   alias Dpi.Modbus.Rtu
   alias Dpi.Modbus.Tcp
 
@@ -161,13 +161,13 @@ defmodule Dpi.Modbus.TestHelper do
     tcp_res = Tcp.Protocol.pack_res(cmd, val, 1)
     assert val == Tcp.Protocol.parse_res(cmd, tcp_res, 1)
     assert byte_size(tcp_res) == Tcp.Protocol.res_len(cmd)
-    # master
+    # conn
     {:ok, slave_pid} = Slave.start_link(model: model)
     port = Slave.port(slave_pid)
-    {:ok, master_state} = Master.open(port: port, ip: {127, 0, 0, 1})
+    {:ok, conn_state} = Conn.open(port: port, ip: {127, 0, 0, 1})
 
     for _ <- 0..10 do
-      {_, {:ok, val2}} = Master.exec(master_state, cmd)
+      {_, {:ok, val2}} = Conn.exec(conn_state, cmd)
       assert val == val2
     end
   end
@@ -192,13 +192,13 @@ defmodule Dpi.Modbus.TestHelper do
     tcp_res = Tcp.Protocol.pack_res(cmd, nil, 1)
     assert nil == Tcp.Protocol.parse_res(cmd, tcp_res, 1)
     assert byte_size(tcp_res) == Tcp.Protocol.res_len(cmd)
-    # master
+    # conn
     {:ok, slave_pid} = Slave.start_link(model: model0)
     port = Slave.port(slave_pid)
-    {:ok, master_state} = Master.open(port: port, ip: {127, 0, 0, 1})
+    {:ok, conn_state} = Conn.open(port: port, ip: {127, 0, 0, 1})
 
     for _ <- 0..10 do
-      {_, :ok} = Master.exec(master_state, cmd)
+      {_, :ok} = Conn.exec(conn_state, cmd)
     end
   end
 end
